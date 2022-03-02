@@ -1,2 +1,2 @@
-# test-task-faraway.gg
+# test-task-faraway
 Test task for Faraway.gg
