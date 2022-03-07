@@ -1,5 +1,2 @@
-import { Info } from './info.component'
-
-export const Layout = {
-  Info,
-}
+export * from './people.component'
+export * from './info.component'

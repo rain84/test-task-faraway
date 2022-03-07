@@ -1,10 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-
 import { Menu } from 'ui'
-import { Layout } from 'layout'
-import { routing } from './app.config'
+import { People, Info } from 'layout'
 
-import './App.css'
+import './app.css'
 
 const App = () => (
   <div className="relative bg-white overflow-hidden">
@@ -14,12 +12,11 @@ const App = () => (
 
         <main className="app-main">
           <Routes>
-            <Route path={routing.home} element={<Layout.Info />} />
-            <Route path={routing.home}>
-              <Route
-                path="*"
-                element={<Navigate to={routing.home} replace={true} />}
-              />
+            <Route path="/">
+              <Route index element={<DefaultRoute />} />
+              <Route path="people" element={<People />} />
+              <Route path="people/:id" element={<Info />} />
+              <Route path="*" element={<DefaultRoute />} />
             </Route>
           </Routes>
         </main>
@@ -27,5 +24,9 @@ const App = () => (
     </div>
   </div>
 )
+
+function DefaultRoute() {
+  return <Navigate to={'/people'} replace={true} />
+}
 
 export default App
