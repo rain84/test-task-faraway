@@ -1,4 +1,5 @@
 import { Table } from 'ui'
+import { useNavigate } from 'react-router-dom'
 import fakeData from 'fake_data.json'
 
 const rows = fakeData.data.slice(0, 5)
@@ -16,6 +17,11 @@ export const People = () => {
   const getKey = ({ name, birth_year }: Partial<Record<string, any>>): any =>
     name + birth_year
 
+  const navigate = useNavigate()
+  const onClick = (data: unknown, index: number) => {
+    navigate((+index + 1).toString())
+  }
+
   return (
     <section>
       <h1 className="text-4xl font-extrabold tracking-tight text-center text-gray-900 sm:text-5xl md:text-6xl">
@@ -28,6 +34,7 @@ export const People = () => {
           columns={columns}
           rows={rows}
           getKey={getKey}
+          onClick={onClick}
         />
       </main>
     </section>
