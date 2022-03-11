@@ -5,7 +5,7 @@ import { People, Info } from 'layout'
 import './app.css'
 
 const App = () => (
-  <div className="relative bg-white overflow-hidden">
+  <div className="relative overflow-hidden bg-white">
     <div className="max-w-4xl mx-auto">
       <div className="app-container">
         <Menu />
