@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 type Row<T = any> = Partial<Record<string, T>>
 type TGetKey = (item: Row) => string
@@ -8,13 +8,23 @@ interface ITable {
     caption?: string
     rows: Row[]
     columns: string[]
-    onClick?: React.MouseEventHandler
+    onClick?: (row: Row, index: number) => void
     getKey?: TGetKey
   }): React.ReactElement
 }
 
 export const Table: ITable = ({ caption, rows, columns, onClick, getKey }) => {
   getKey ??= (row: Row) => row?.id
+
+  const onClickTBody = useCallback(
+    (e) => {
+      const { index } = e.target.closest('[data-index]')?.dataset
+      if (!index) return
+
+      onClick?.(rows[index], index)
+    },
+    [rows, onClick]
+  )
 
   return (
     <table className="w-full text-sm border-collapse table-auto">
@@ -35,14 +45,17 @@ export const Table: ITable = ({ caption, rows, columns, onClick, getKey }) => {
           ))}
         </tr>
       </thead>
-      <tbody onClick={onClick} className="bg-white dark:bg-slate-800">
+      <tbody
+        onClick={onClickTBody}
+        className="bg-white cursor-pointer dark:bg-slate-800"
+      >
         {rows.map((row, i) => (
           <tr
             key={(getKey as NonNullable<TGetKey>)(row)}
-            data-id={row.id}
+            data-index={i}
             className="border-b border-slate-100 text-slate-500 hover:bg-slate-200"
           >
-            <td className="py-0 pl-4 pr-4 ">{i + 1}</td>
+            <td className="py-0 pl-4 pr-4">{i + 1}</td>
             {columns.map((column) => (
               <td className="py-0 pl-4 pr-4" key={column}>
                 {row[column]}
