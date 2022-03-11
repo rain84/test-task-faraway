@@ -2,7 +2,7 @@ import { Table } from 'ui'
 import { useNavigate } from 'react-router-dom'
 import fakeData from 'fake_data.json'
 
-const rows = fakeData.data.slice(0, 5)
+const rows = fakeData.data.slice(0, 5) as unknown as Record<string, string>[]
 const columns = [
   'name',
   'height',
@@ -14,7 +14,7 @@ const columns = [
   'gender',
 ]
 export const People = () => {
-  const getKey = ({ name, birth_year }: Partial<Record<string, any>>): any =>
+  const getKey = ({ name, birth_year }: Record<string, string>) =>
     name + birth_year
 
   const navigate = useNavigate()
@@ -30,6 +30,7 @@ export const People = () => {
       <br />
       <main className="flex flex-row justify-center">
         <Table
+          className="w-full"
           caption="Star Wars"
           columns={columns}
           rows={rows}

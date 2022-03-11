@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react'
 
-type Row<T = any> = Partial<Record<string, T>>
+type Row<T = string> = Record<string, T>
 type TGetKey = (item: Row) => string
 
 interface ITable {
   (props: {
+    className?: string
     caption?: string
     rows: Row[]
     columns: string[]
@@ -13,8 +14,15 @@ interface ITable {
   }): React.ReactElement
 }
 
-export const Table: ITable = ({ caption, rows, columns, onClick, getKey }) => {
-  getKey ??= (row: Row) => row?.id
+export const Table: ITable = ({
+  className,
+  caption,
+  rows,
+  columns,
+  onClick,
+  getKey,
+}) => {
+  getKey ??= (row: Row) => row.id
 
   const onClickTBody = useCallback(
     (e) => {
@@ -27,7 +35,7 @@ export const Table: ITable = ({ caption, rows, columns, onClick, getKey }) => {
   )
 
   return (
-    <table className="w-full text-sm border-collapse table-auto">
+    <table className={`${className} text-sm border-collapse table-auto`}>
       <thead className="text-left border-b bg-amber-100 text-slate-500">
         {caption && (
           <tr>
@@ -45,10 +53,7 @@ export const Table: ITable = ({ caption, rows, columns, onClick, getKey }) => {
           ))}
         </tr>
       </thead>
-      <tbody
-        onClick={onClickTBody}
-        className="bg-white cursor-pointer dark:bg-slate-800"
-      >
+      <tbody onClick={onClickTBody} className="bg-white cursor-pointer">
         {rows.map((row, i) => (
           <tr
             key={(getKey as NonNullable<TGetKey>)(row)}
