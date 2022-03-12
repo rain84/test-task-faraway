@@ -1,16 +1,20 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Menu } from 'ui'
+import { Breadcrumbs as Breadcrumbs_, withURLDataProvider } from 'ui'
 import { People, Info } from 'layout'
 
 import './app.css'
+
+const Breadcrumbs = withURLDataProvider(Breadcrumbs_)
 
 const App = () => (
   <div className="relative overflow-hidden bg-white">
     <div className="max-w-4xl mx-auto">
       <div className="app-container">
-        <Menu />
-
-        <main className="app-main">
+        <main className="p-4 mt-6 border-2 rounded-lg border-slate-200 app-main">
+          <div className="flex justify-start">
+            <Breadcrumbs />
+          </div>
+          <br />
           <Routes>
             <Route path="/">
               <Route index element={<DefaultRoute />} />
