@@ -2,7 +2,7 @@ import { Table } from 'ui'
 import { useNavigate } from 'react-router-dom'
 import fakeData from 'fake_data.json'
 
-const rows = fakeData.data.slice(0, 5) as unknown as Record<string, string>[]
+const rows = fakeData.data as unknown as Record<string, string>[]
 const columns = [
   'name',
   'height',
@@ -22,6 +22,8 @@ export const People = () => {
     navigate((+index + 1).toString())
   }
 
+  const selectItems = ['5', '10', '20', '50', '100']
+
   return (
     <section>
       <h1 className="text-4xl font-extrabold tracking-tight text-center text-gray-900 sm:text-5xl md:text-6xl">
@@ -34,6 +36,7 @@ export const People = () => {
           caption="Star Wars"
           columns={columns}
           rows={rows}
+          selectItems={selectItems}
           getKey={getKey}
           onClick={onClick}
         />
