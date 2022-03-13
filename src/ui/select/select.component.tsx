@@ -4,20 +4,25 @@ import { Listbox, Transition } from '@headlessui/react'
 import { Button } from './button.component'
 import { Option } from './option.component'
 
-type Props = {
+export type SelectProps = {
   className?: string
   items: Array<string | number>
-  init: string | number
-  onChange(value: number): void
+  initialVal: string | number
+  onChange(value: string | number): void
 }
 
-export const Select = ({ className, items, init, onChange }: Props) => {
+export const Select = ({
+  className,
+  items,
+  initialVal,
+  onChange,
+}: SelectProps) => {
   className ??= ''
 
-  const [selected, setSelected] = useState(items[+init])
+  const [selected, setSelected] = useState(initialVal)
   const selectOnChange = useRef((val: string) => {
     setSelected(val)
-    onChange(+val)
+    onChange(val)
   }).current
 
   return (
