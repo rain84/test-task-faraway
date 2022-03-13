@@ -1,7 +1,7 @@
 import { Listbox } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/solid'
 
-import { classNames } from '../../util'
+import { classNames } from 'utils'
 
 export const Option = ({ item }: { item: string }) => (
   <Listbox.Option
