@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react'
 
+import { Pagination } from 'ui'
+import { getParentDatasetProp } from 'utils'
 import { THead } from './thead.component'
 import { TBody } from './tbody.component'
+import { TFoot } from './tfoot.component'
 
 export type Row<T = string> = Record<string, T>
 export type GetKey = (item: Row) => string
@@ -28,13 +31,14 @@ export const Table: ITable = ({
   getKey,
 }) => {
   getKey ??= (row: Row) => row.id
+  const colSpan = columns.length + 1
 
   const onClickTBody = useCallback(
     (e) => {
-      const { index } = e.target.closest('[data-index]')?.dataset
+      const index = getParentDatasetProp(e, 'index')
       if (!index) return
 
-      onClick?.(rows[index], index)
+      onClick?.(rows[+index], +index)
     },
     [rows, onClick]
   )
@@ -47,6 +51,7 @@ export const Table: ITable = ({
       <THead
         columns={columns}
         caption={caption}
+        colSpan={colSpan}
         onChange={selectOnChange}
         selectItems={selectItems}
       />
@@ -57,6 +62,10 @@ export const Table: ITable = ({
         onClick={onClickTBody}
         getKey={getKey}
       />
+
+      <TFoot colSpan={colSpan}>
+        <Pagination onClick={(i) => console.log('i', i)} />
+      </TFoot>
     </table>
   )
 }
