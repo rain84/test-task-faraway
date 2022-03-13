@@ -3,7 +3,7 @@ import type { Row, GetKey } from './table.component'
 type Props = {
   columns: string[]
   rows: Row<string>[]
-  onClick: (e: any) => void
+  onClick: React.MouseEventHandler
   getKey: GetKey | undefined
 }
 

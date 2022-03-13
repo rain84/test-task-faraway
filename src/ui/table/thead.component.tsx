@@ -3,25 +3,31 @@ import { Select } from 'ui'
 type Props = {
   caption?: string
   columns: string[]
+  colSpan: number
   selectItems?: Array<string | number>
   onChange: (value: number) => void
 }
 
-export const THead = ({ caption, columns, selectItems, onChange }: Props) => {
-  const totalSpan = columns.length + 1
-  const colSpan = { select: 2, caption: totalSpan }
+export const THead = ({
+  caption,
+  columns,
+  colSpan,
+  selectItems,
+  onChange,
+}: Props) => {
+  const cSpan = { select: 2, caption: colSpan }
 
-  if (selectItems) colSpan.caption -= colSpan.select
+  if (selectItems) cSpan.caption -= cSpan.select
 
   return (
     <thead className="text-left border-b bg-amber-100 text-slate-500">
       <tr>
-        <th className="p-2 text-center" colSpan={colSpan.caption}>
+        <th className="p-2 text-center" colSpan={cSpan.caption}>
           {caption}
         </th>
 
         {selectItems && (
-          <th colSpan={colSpan.select}>
+          <th colSpan={cSpan.select}>
             <div className="flex items-center justify-end p-2">
               <span>Items: </span>
               <Select
