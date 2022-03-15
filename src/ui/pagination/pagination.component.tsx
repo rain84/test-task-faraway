@@ -7,12 +7,12 @@ import { Page } from './page.component'
 const MAX_LENGTH = 5
 
 type Props = {
-  amount: number
+  count: number
   current?: number
   onClick?: (i: number) => void
 }
 
-export const Pagination = ({ amount, onClick, ...props }: Props) => {
+export const Pagination = ({ count, onClick, ...props }: Props) => {
   const [current, setCurrent] = useState(props.current ?? 1)
   const cb = useRef<React.MouseEventHandler>((e) => {
     const index = getParentDatasetProp(e, 'index')
@@ -22,13 +22,13 @@ export const Pagination = ({ amount, onClick, ...props }: Props) => {
     onClick?.(+index)
   }).current
 
-  const length = amount < MAX_LENGTH ? amount : MAX_LENGTH
+  const length = count < MAX_LENGTH ? count : MAX_LENGTH
   const half_length = Math.ceil(length / 2)
 
   //  close to the beginning
   let min = 1
   //  close to the end
-  if (current > amount - half_length) min = amount - length + 1
+  if (current > count - half_length) min = count - length + 1
   // somewhere in the middle
   else if (current >= min + half_length) min = current - half_length + 1
 
@@ -44,7 +44,7 @@ export const Pagination = ({ amount, onClick, ...props }: Props) => {
         <Page index={i} key={i} current={current} />
       ))}
 
-      <Arrow type="right" index={amount} />
+      <Arrow type="right" index={count} />
     </nav>
   )
 }
