@@ -1,4 +1,4 @@
-import type { Row, GetKey } from './table.component'
+import type { Row, GetKey } from './type'
 
 type Props = {
   columns: string[]
@@ -13,7 +13,7 @@ export const TBody = ({ rows, columns, onClick, getKey }: Props) => (
       <tr
         key={(getKey as NonNullable<GetKey>)(row)}
         data-index={i}
-        className="border-b border-slate-100 text-slate-500 hover:bg-slate-200"
+        className="border-b last:border-b-0 border-slate-100 text-slate-500 hover:bg-slate-200"
       >
         <td className="py-0 pl-4 pr-4">{i + 1}</td>
         {columns.map((column) => (

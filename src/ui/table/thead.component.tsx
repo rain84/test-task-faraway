@@ -1,44 +1,36 @@
-import { Select } from 'ui'
+export type HeaderProps = {
+  colSpan?: {
+    right?: number
+    caption?: number
+  }
+  children?: {
+    right: React.ReactElement
+  }
+}
 
 type Props = {
   caption?: string
   columns: string[]
-  colSpan: number
-  selectItems?: Array<string | number>
-  onChange: (value: number) => void
-}
+} & HeaderProps
 
-export const THead = ({
-  caption,
-  columns,
-  colSpan,
-  selectItems,
-  onChange,
-}: Props) => {
-  const cSpan = { select: 2, caption: colSpan }
+export const THead = ({ caption, columns, colSpan, children }: Props) => {
+  colSpan ??= {}
+  colSpan.caption ??= columns.length + 1
 
-  if (selectItems) cSpan.caption -= cSpan.select
+  if (colSpan?.right) colSpan.caption -= colSpan.right
+
+  const have = {
+    right: colSpan?.right !== undefined && children?.right !== undefined,
+  }
 
   return (
     <thead className="text-left border-b bg-amber-100 text-slate-500">
       <tr>
-        <th className="p-2 text-center" colSpan={cSpan.caption}>
+        <th className="p-2 text-center" colSpan={colSpan?.caption}>
           {caption}
         </th>
 
-        {selectItems && (
-          <th colSpan={cSpan.select}>
-            <div className="flex items-center justify-end p-2">
-              <span>Items: </span>
-              <Select
-                className="ml-2 w-fit"
-                items={selectItems}
-                init="2"
-                onChange={onChange}
-              />
-            </div>
-          </th>
-        )}
+        {have.right && <th colSpan={colSpan?.right}>{children?.right}</th>}
       </tr>
 
       <tr className="font-medium capitalize">

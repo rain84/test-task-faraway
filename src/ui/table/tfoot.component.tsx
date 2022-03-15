@@ -1,17 +1,23 @@
+import React from 'react'
+
+export type FooterProps = {
+  children?: React.ReactElement
+}
+
 type Props = {
   colSpan?: number
   selectItems?: Array<string | number>
-  children?: React.ReactElement
-  onChange?: (value: number) => void
-}
+} & FooterProps
 
-export const TFoot = ({ colSpan, selectItems, children, onChange }: Props) => {
+export const TFoot = ({ colSpan, children }: Props) => {
+  if (!React.Children.count(children)) return null
+
   colSpan ??= 1
 
   return (
     <tfoot>
       <tr>
-        <td className="p-4" colSpan={colSpan}>
+        <td className="py-4" colSpan={colSpan}>
           {children}
         </td>
       </tr>
