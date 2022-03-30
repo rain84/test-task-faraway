@@ -1,11 +1,8 @@
+import React, { ReactElement } from 'react'
+
 export type HeaderProps = {
-  colSpan?: {
-    right?: number
-    caption?: number
-  }
-  children?: {
-    right: React.ReactElement
-  }
+  colSpanRight?: number
+  headerRight?: ReactElement
 }
 
 type Props = {
@@ -13,14 +10,21 @@ type Props = {
   columns: string[]
 } & HeaderProps
 
-export const THead = ({ caption, columns, colSpan, children }: Props) => {
-  colSpan ??= {}
-  colSpan.caption ??= columns.length + 1
-
-  if (colSpan?.right) colSpan.caption -= colSpan.right
+export const THead = ({
+  caption,
+  columns,
+  colSpanRight,
+  headerRight,
+}: Props) => {
+  const colSpan = {
+    right: colSpanRight,
+    caption: columns.length + 1 - (colSpanRight ?? 0),
+  }
 
   const have = {
-    right: colSpan?.right !== undefined && children?.right !== undefined,
+    right:
+      colSpan?.right !== undefined &&
+      React.isValidElement(headerRight) !== undefined,
   }
 
   return (
@@ -30,7 +34,7 @@ export const THead = ({ caption, columns, colSpan, children }: Props) => {
           {caption}
         </th>
 
-        {have.right && <th colSpan={colSpan?.right}>{children?.right}</th>}
+        {have.right && <th colSpan={colSpan?.right}>{headerRight}</th>}
       </tr>
 
       <tr className="font-medium capitalize">

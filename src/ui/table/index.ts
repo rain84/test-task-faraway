@@ -1,1 +1,5 @@
 export * from './table.component'
+export * from './thead.component'
+export * from './tbody.component'
+export * from './tfoot.component'
+export * from './table_paginated'

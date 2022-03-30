@@ -1,7 +1,7 @@
 import React from 'react'
 
 export type FooterProps = {
-  children?: React.ReactElement
+  children: React.ReactElement
 }
 
 type Props = {
@@ -9,18 +9,12 @@ type Props = {
   selectItems?: Array<string | number>
 } & FooterProps
 
-export const TFoot = ({ colSpan, children }: Props) => {
-  if (!React.Children.count(children)) return null
-
-  colSpan ??= 1
-
-  return (
-    <tfoot>
-      <tr>
-        <td className="py-4" colSpan={colSpan}>
-          {children}
-        </td>
-      </tr>
-    </tfoot>
-  )
-}
+export const TFoot = ({ colSpan = 1, children }: Props) => (
+  <tfoot>
+    <tr>
+      <td className="py-4" colSpan={colSpan}>
+        {children}
+      </td>
+    </tr>
+  </tfoot>
+)

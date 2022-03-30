@@ -1,22 +1,18 @@
-import type { HeaderProps } from './thead.component'
-import type { FooterProps } from './tfoot.component'
+import { ReactElement } from 'react'
 
-export type Row<T = string> = Record<string, T>
+export type Row = Record<string, string>
 export type GetKey = (item: Row) => string
 
-export interface ITable {
-  (props: {
-    className?: string
-    caption?: string
-    rows: Row[]
-    columns: string[]
+export type TableProps = {
+  className?: string
+  caption?: string
+  columns: string[]
+  rows: Row[]
 
-    onClick?: (row: Row, index: number) => void
-    getKey?: GetKey
+  head?: ReactElement
+  body?: ReactElement
+  footer?: ReactElement
 
-    children?: {
-      header?: HeaderProps
-      footer?: FooterProps
-    }
-  }): React.ReactElement
+  onClick?: (row: Row, index: number) => void
+  getKey?: GetKey
 }

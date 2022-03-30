@@ -1,23 +1,23 @@
 import { useCallback } from 'react'
 
 import { getParentDatasetProp } from 'utils'
-import type { ITable } from './type'
 import { THead } from './thead.component'
 import { TBody } from './tbody.component'
-import { TFoot } from './tfoot.component'
+import type { TableProps } from './type'
 
-export const Table: ITable = ({
+export const Table = ({
   className,
   caption,
   rows,
   columns,
-  children,
+
+  head,
+  body,
+  footer,
 
   onClick,
   getKey,
-}) => {
-  getKey ??= (row) => row.id
-
+}: TableProps) => {
   const cb = useCallback(
     (e) => {
       const index = getParentDatasetProp(e, 'index')
@@ -28,17 +28,13 @@ export const Table: ITable = ({
     [rows, onClick]
   )
 
-  const { header, footer } = children ?? { header: {}, footer: {} }
-
   return (
     <table className={`${className} text-sm border-collapse table-auto`}>
-      <THead columns={columns} caption={caption} colSpan={header?.colSpan}>
-        {header?.children}
-      </THead>
-
-      <TBody rows={rows} columns={columns} onClick={cb} getKey={getKey} />
-
-      <TFoot colSpan={columns.length + 1}>{footer?.children}</TFoot>
+      {head ?? <THead columns={columns} caption={caption} />}
+      {body ?? (
+        <TBody rows={rows} columns={columns} onClick={cb} getKey={getKey} />
+      )}
+      {footer}
     </table>
   )
 }

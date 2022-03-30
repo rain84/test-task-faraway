@@ -2,12 +2,17 @@ import type { Row, GetKey } from './type'
 
 type Props = {
   columns: string[]
-  rows: Row<string>[]
+  rows: Row[]
   onClick: React.MouseEventHandler
-  getKey: GetKey | undefined
+  getKey?: GetKey
 }
 
-export const TBody = ({ rows, columns, onClick, getKey }: Props) => (
+const _getKey: GetKey = (row) => {
+  if (!row.id) throw new Error('Row must have an id')
+  return row.id
+}
+
+export const TBody = ({ rows, columns, onClick, getKey = _getKey }: Props) => (
   <tbody onClick={onClick} className="bg-white cursor-pointer">
     {rows.map((row, i) => (
       <tr
