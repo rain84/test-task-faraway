@@ -1,5 +1,5 @@
 export * from './menu.component'
-export * from './table'
+export { Table, TablePaginated } from './table'
 export * from './breadcrumbs'
 export * from './select'
 export * from './pagination'
