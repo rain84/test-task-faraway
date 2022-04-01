@@ -8,6 +8,7 @@ export type TableProps = {
   caption?: string
   columns: string[]
   rows: Row[]
+  numberingFrom?: number
 
   head?: ReactElement
   body?: ReactElement

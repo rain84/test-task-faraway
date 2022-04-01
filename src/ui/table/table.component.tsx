@@ -9,6 +9,7 @@ export const Table = ({
   className,
   caption,
   rows,
+  numberingFrom = 0,
   columns,
 
   head,
@@ -32,7 +33,13 @@ export const Table = ({
     <table className={`${className} text-sm border-collapse table-auto`}>
       {head ?? <THead columns={columns} caption={caption} />}
       {body ?? (
-        <TBody rows={rows} columns={columns} onClick={cb} getKey={getKey} />
+        <TBody
+          rows={rows}
+          columns={columns}
+          numberingFrom={numberingFrom}
+          onClick={cb}
+          getKey={getKey}
+        />
       )}
       {footer}
     </table>
