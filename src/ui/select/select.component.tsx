@@ -3,6 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 
 import { Button } from './button.component'
 import { Option } from './option.component'
+import { log } from 'console'
 
 export type SelectProps = {
   className?: string
@@ -30,14 +31,7 @@ export const Select = ({
       {({ open }) => (
         <div className={`${className} relative`}>
           <Button selected={selected.toString()} className={className} />
-
-          <Transition
-            show={open}
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+          {open && (
             <Listbox.Options
               className={`${className} z-20 absolute py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
             >
@@ -45,7 +39,7 @@ export const Select = ({
                 <Option item={item.toString()} key={item} />
               ))}
             </Listbox.Options>
-          </Transition>
+          )}
         </div>
       )}
     </Listbox>
