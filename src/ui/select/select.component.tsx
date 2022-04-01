@@ -39,7 +39,7 @@ export const Select = ({
             leaveTo="opacity-0"
           >
             <Listbox.Options
-              className={`${className} absolute z-10 py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
+              className={`${className} z-20 absolute py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
             >
               {items.map((item) => (
                 <Option item={item.toString()} key={item} />

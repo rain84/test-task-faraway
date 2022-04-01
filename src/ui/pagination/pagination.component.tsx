@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { createArray, getParentDatasetProp } from 'utils'
 import { Arrow } from './arrow.component'
@@ -12,8 +12,12 @@ type Props = {
   onClick?: (i: number) => void
 }
 
-export const Pagination = ({ count, onClick, ...props }: Props) => {
-  const [current, setCurrent] = useState(props.current ?? 1)
+export const Pagination = ({
+  count,
+  current: current_ = 1,
+  onClick,
+}: Props) => {
+  const [current, setCurrent] = useState(current_)
   const cb = useRef<React.MouseEventHandler>((e) => {
     const index = getParentDatasetProp(e, 'index')
     if (!index) return
@@ -21,6 +25,8 @@ export const Pagination = ({ count, onClick, ...props }: Props) => {
     setCurrent(+index)
     onClick?.(+index)
   }).current
+
+  useEffect(() => setCurrent(current_), [current_])
 
   const length = count < MAX_LENGTH ? count : MAX_LENGTH
   const half_length = Math.ceil(length / 2)
