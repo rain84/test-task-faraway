@@ -1,9 +1,8 @@
-import { Fragment, useState, useRef } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
+import { useState, useRef } from 'react'
+import { Listbox } from '@headlessui/react'
 
 import { Button } from './button.component'
 import { Option } from './option.component'
-import { log } from 'console'
 
 export type SelectProps = {
   className?: string

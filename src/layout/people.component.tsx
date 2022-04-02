@@ -1,6 +1,6 @@
 import { TablePaginated } from 'ui'
 import { useNavigate } from 'react-router-dom'
-import fakeData from 'fake_data.json'
+import fakeData from 'app/fake_data.json'
 
 const rows = fakeData.data.slice(0, 21) as unknown as Record<string, string>[]
 const columns = [

@@ -1,5 +1,5 @@
 import { Table } from 'ui'
-import fakeData from 'fake_data.json'
+import fakeData from 'app/fake_data.json'
 
 const data = fakeData.data[0] as unknown as Record<string, string>
 const parameters = [

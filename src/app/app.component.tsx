@@ -6,7 +6,7 @@ import './app.css'
 
 const Breadcrumbs = withURLDataProvider(Breadcrumbs_)
 
-const App = () => (
+export const App = () => (
   <div className="relative overflow-hidden bg-white">
     <div className="max-w-4xl mx-auto">
       <div className="app-container">
@@ -32,5 +32,3 @@ const App = () => (
 function DefaultRoute() {
   return <Navigate to={'/people'} replace={true} />
 }
-
-export default App
