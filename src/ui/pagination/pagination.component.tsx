@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
+import cn from 'classnames'
 
 import { createArray, getParentDatasetProp } from 'utils'
 import { Arrow } from './arrow.component'
@@ -30,6 +31,7 @@ export const Pagination = ({
 
   const length = count < MAX_LENGTH ? count : MAX_LENGTH
   const half_length = Math.ceil(length / 2)
+  const isDisabled = count < 2
 
   //  close to the beginning
   let min = 1
@@ -38,15 +40,20 @@ export const Pagination = ({
   // somewhere in the middle
   else if (current >= min + half_length) min = current - half_length + 1
 
+  const indexes = useMemo(
+    () => createArray(min, min + length - 1),
+    [min, length]
+  )
+  const navClasses = cn('inline-flex -space-x-px rounded-md shadow-sm', {
+    disabled: isDisabled,
+    'pointer-events-none': isDisabled,
+  })
+
   return (
-    <nav
-      onClick={cb}
-      className="inline-flex -space-x-px rounded-md shadow-sm"
-      aria-label="Pagination"
-    >
+    <nav onClick={cb} className={navClasses} aria-label="Pagination">
       <Arrow type="left" index={1} />
 
-      {createArray(min, min + length - 1).map((i) => (
+      {indexes.map((i) => (
         <Page index={i} key={i} current={current} />
       ))}
 
