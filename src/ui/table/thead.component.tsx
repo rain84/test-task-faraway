@@ -3,11 +3,14 @@ import React, { ReactElement } from 'react'
 export type HeaderProps = {
   colSpanRight?: number
   headerRight?: ReactElement
+  colSpanLeft?: number
+  headerLeft?: ReactElement
 }
 
 type Props = {
   caption?: string
   columns: string[]
+  children?: ReactElement
 } & HeaderProps
 
 export const THead = ({
@@ -15,21 +18,30 @@ export const THead = ({
   columns,
   colSpanRight,
   headerRight,
+  colSpanLeft,
+  headerLeft,
+  children,
 }: Props) => {
   const colSpan = {
     right: colSpanRight,
-    caption: columns.length + 1 - (colSpanRight ?? 0),
+    left: colSpanLeft,
+    caption: columns.length + 1 - (colSpanRight ?? 0) - (colSpanLeft ?? 0),
   }
 
   const have = {
     right:
       colSpan?.right !== undefined &&
       React.isValidElement(headerRight) !== undefined,
+    left:
+      colSpan?.left !== undefined &&
+      React.isValidElement(headerLeft) !== undefined,
   }
 
   return (
     <thead className="text-left border-b bg-amber-100 text-slate-500">
       <tr>
+        {have.left && <th colSpan={colSpan?.left}>{headerLeft}</th>}
+
         <th className="p-2 text-center" colSpan={colSpan?.caption}>
           {caption}
         </th>
@@ -46,6 +58,8 @@ export const THead = ({
           </th>
         ))}
       </tr>
+
+      {children}
     </thead>
   )
 }
